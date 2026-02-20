@@ -40,6 +40,7 @@ class CartPage:
         frame.get_by_placeholder("Email").fill(email)
         frame.get_by_placeholder("Card number").fill(card)
         frame.get_by_placeholder("MM / YY").fill(expiry)
+        # press_sequentially fires keyup events that Stripe's JS needs to reveal the ZIP field
         frame.get_by_placeholder("CVC").press_sequentially(cvc)
         frame.get_by_placeholder("ZIP Code").fill(zip_code)
         frame.get_by_role("button", name="Pay").click()
