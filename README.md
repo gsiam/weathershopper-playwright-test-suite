@@ -29,6 +29,7 @@ conftest.py                 # shared fixtures
 ## Setup
 
 ```bash
+pyenv install 3.10          # if not already installed
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 playwright install chromium
@@ -40,10 +41,13 @@ playwright install chromium
 # All tests
 pytest -v
 
+# Smoke test
+pytest -m smoke -v
+
 # Product and cart tests only (no payment)
 pytest -m "not e2e" -v
 
-# E2e tests only
+# E2E tests only
 pytest -m e2e -v
 ```
 
@@ -53,25 +57,26 @@ pytest -m e2e -v
 # Build
 docker build -t weathershopper-tests .
 
+# All tests
+docker run --rm weathershopper-tests -v
+
 # Smoke test
 docker run --rm weathershopper-tests -m smoke -v
 
-# All tests
-docker run --rm weathershopper-tests
+# Product and cart tests only (no payment)
+docker run --rm weathershopper-tests -m "not e2e" -v
 
 # E2E tests only
 docker run --rm weathershopper-tests -m e2e -v
-
-# Product and cart tests only (no payment)
-docker run --rm weathershopper-tests -m "not e2e" -v
 ```
 
 ## Design decisions
 
 **Product filtering is dynamic.** Rather than hardcoding expected product names,
 the suite selects by ingredient or SPF substring at runtime. This validates the
-business rule (cheapest aloe, cheapest SPF-50, etc.) rather than a fixed product
-position, which changes on every page load.
+business rule (cheapest aloe, cheapest SPF-50, etc.) and guards against two
+sources of brittleness: product position changes on every page load, and full
+product names may change at any time due to content updates.
 
 **Homepage routing is covered with a lightweight smoke test.** The site randomises
 the temperature on each load (1–18 °C or 35–49 °C). A single test reads the
