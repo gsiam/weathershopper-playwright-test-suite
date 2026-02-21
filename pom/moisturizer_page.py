@@ -1,5 +1,7 @@
 from playwright.sync_api import Page
 
+from pom.product import Product
+
 
 class MoisturizerPage:
 
@@ -24,16 +26,16 @@ class MoisturizerPage:
             result.append((name, price, card.get_by_role("button", name="Add")))
         return result
 
-    def get_products_with_ingredient(self, ingredient: str) -> list:
-        return [(name, price) for name, price, _ in self._collect_products(ingredient)]
+    def get_products_with_ingredient(self, ingredient: str) -> list[Product]:
+        return [Product(name, price) for name, price, _ in self._collect_products(ingredient)]
 
-    def add_cheapest_with_ingredient(self, ingredient: str) -> tuple:
+    def add_cheapest_with_ingredient(self, ingredient: str) -> Product:
         products = self._collect_products(ingredient)
         if not products:
             raise ValueError(f"No moisturizer found containing '{ingredient}'")
         name, price, button = min(products, key=lambda p: p[1])
         button.click()
-        return name, price
+        return Product(name, price)
 
     def go_to_cart(self) -> None:
         self.cart_count.click()

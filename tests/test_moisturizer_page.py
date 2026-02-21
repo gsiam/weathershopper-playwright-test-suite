@@ -9,12 +9,12 @@ def test_add_cheapest(moisturizer_page, ingredient):
     # Given
     mp = MoisturizerPage(moisturizer_page)
     all_products = mp.get_products_with_ingredient(ingredient)
-    expected_min_price = min(price for _, price in all_products)
+    expected_min_price = min(p.price for p in all_products)
 
     # When
-    name, price = mp.add_cheapest_with_ingredient(ingredient)
+    product = mp.add_cheapest_with_ingredient(ingredient)
 
     # Then
-    assert ingredient.lower() in name.lower()
-    assert price == expected_min_price
+    assert ingredient.lower() in product.name.lower()
+    assert product.price == expected_min_price
     expect(mp.cart_count).to_have_text("1 item(s)")
