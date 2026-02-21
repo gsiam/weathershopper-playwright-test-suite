@@ -47,6 +47,25 @@ pytest -m "not e2e" -v
 pytest -m e2e -v
 ```
 
+## Docker
+
+```bash
+# Build
+docker build -t weathershopper-tests .
+
+# Smoke test
+docker run --rm weathershopper-tests -m smoke -v
+
+# All tests
+docker run --rm weathershopper-tests
+
+# E2E tests only
+docker run --rm weathershopper-tests -m e2e -v
+
+# Product and cart tests only (no payment)
+docker run --rm weathershopper-tests -m "not e2e" -v
+```
+
 ## Design decisions
 
 **Product filtering is dynamic.** Rather than hardcoding expected product names,
