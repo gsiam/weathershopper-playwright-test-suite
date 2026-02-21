@@ -17,7 +17,7 @@ def cart_page(request):
     ],
     indirect=["cart_page"],
 )
-def test_items_displayed(cart_page, keywords):
+def test_view(cart_page, keywords):
     # Given
     cart = CartPage(cart_page)
 
@@ -32,7 +32,7 @@ def test_items_displayed(cart_page, keywords):
 @pytest.mark.parametrize(
     "cart_page", ["cart_with_moisturizers", "cart_with_sunscreens"], indirect=True
 )
-def test_total_matches_sum(cart_page):
+def test_total(cart_page):
     # Given
     cart = CartPage(cart_page)
 
