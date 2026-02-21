@@ -18,6 +18,7 @@ pom/                        # Page Object Models
   sunscreen_page.py
   cart_page.py
 tests/
+  test_home_page.py         # temperature-driven routing
   test_moisturizer_page.py  # product page interactions
   test_sunscreen_page.py
   test_cart_page.py         # cart state and totals
@@ -53,11 +54,12 @@ the suite selects by ingredient or SPF substring at runtime. This validates the
 business rule (cheapest aloe, cheapest SPF-50, etc.) rather than a fixed product
 position, which changes on every page load.
 
-**Homepage routing is not automated.** The site randomises the temperature on each
-load (1–18 °C or 35–49 °C) to simulate a human decision: shop for moisturizers
-when cold, sunscreens when hot. Both product scenarios are covered deterministically
-by the direct purchase tests. Automating the routing branch would introduce
-non-determinism without adding coverage.
+**Homepage routing is covered with a lightweight smoke test.** The site randomises
+the temperature on each load (1–18 °C or 35–49 °C). A single test reads the
+rendered temperature, clicks the correct buy button, and asserts the URL. This
+validates the routing rule without running a full purchase. Because the temperature
+is random, only one branch is exercised per run; both paths are covered
+deterministically by the direct purchase tests.
 
 **E2E tests use `pytest.mark.flaky(reruns=1)`.** The site's payment screen fails
 5% of the time by design, simulating real-world payment processor unreliability.

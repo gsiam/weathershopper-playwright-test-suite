@@ -13,4 +13,4 @@ class HomePage:
         self.buy_sunscreens_button = page.get_by_role("button", name="Buy sunscreens")
 
     def get_temperature(self) -> int:
-        return int(self.temperature.inner_text().strip())
+        return int("".join(c for c in self.temperature.inner_text() if c.isdigit()))
