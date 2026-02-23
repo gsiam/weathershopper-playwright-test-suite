@@ -7,7 +7,7 @@ Automated test suite for [Weather Shopper](http://weathershopper.pythonanywhere.
 - [Playwright](https://playwright.dev/python/) — browser automation
 - [pytest](https://docs.pytest.org/) + [pytest-playwright](https://playwright.dev/python/docs/test-runners) — test runner and fixtures
 - [pytest-rerunfailures](https://github.com/pytest-dev/pytest-rerunfailures) — retry support for known environmental flakiness
-- Python 3.10
+- Python 3.10.19 (pinned in `.python-version`)
 
 ## Structure
 
@@ -29,7 +29,8 @@ conftest.py                 # shared fixtures
 ## Setup
 
 ```bash
-pyenv install 3.10          # if not already installed
+pyenv install 3.10.19 --skip-existing
+python -V  # should print Python 3.10.19
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 playwright install chromium
@@ -51,7 +52,7 @@ pytest -m "not e2e" -v
 pytest -m e2e -v
 ```
 
-## Docker
+## Docker (recommended for evaluation)
 
 ```bash
 # Build
@@ -89,3 +90,5 @@ deterministically by the direct purchase tests.
 5% of the time by design, simulating real-world payment processor unreliability.
 The `flaky` marker retries once on failure, reducing the false alarm rate from 5%
 to 0.25%. Two consecutive failures are treated as a genuine regression.
+
+**Chromium only.** The app has no browser-specific behaviour, so a single engine covers the functional risk. Cross-browser coverage (Firefox, WebKit) could be added via --browser parameterisation with no test changes required.
