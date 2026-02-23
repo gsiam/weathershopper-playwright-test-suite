@@ -25,15 +25,6 @@ class CartPage:
         return int(text.split("Rupees")[-1].strip())
 
     def pay(self, email: str, card: str, expiry: str, cvc: str, zip_code: str) -> None:
-        """Fill in the Stripe checkout iframe and submit payment.
-
-        Args:
-            email: Any valid email address.
-            card: Card number, e.g. '4242 4242 4242 4242'.
-            expiry: Expiry in 'MM / YY' format, e.g. '12 / 26'.
-            cvc: Three-digit CVC.
-            zip_code: Billing ZIP code.
-        """
         self.pay_button.click()
 
         frame = self._page.frame_locator("iframe.stripe_checkout_app")
@@ -42,5 +33,7 @@ class CartPage:
         frame.get_by_placeholder("MM / YY").fill(expiry)
         # press_sequentially fires keyup events that Stripe's JS needs to reveal the ZIP field
         frame.get_by_placeholder("CVC").press_sequentially(cvc)
-        frame.get_by_placeholder("ZIP Code").fill(zip_code)
+        zip_field = frame.get_by_placeholder("ZIP Code")
+        zip_field.wait_for()
+        zip_field.fill(zip_code)
         frame.get_by_role("button", name="Pay").click()
