@@ -14,7 +14,9 @@ class SunscreenPage:
         cards = self._page.locator("div.text-center.col-4")
         count = cards.count()
         if count == 0:
-            raise RuntimeError("No product cards found — page may not have loaded or locator is wrong")
+            raise RuntimeError(
+                "No product cards found — page may not have loaded or locator is wrong"
+            )
         result = []
         for i in range(count):
             card = cards.nth(i)

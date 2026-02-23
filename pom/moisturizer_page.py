@@ -14,7 +14,9 @@ class MoisturizerPage:
         cards = self._page.locator("div.text-center.col-4")
         count = cards.count()
         if count == 0:
-            raise RuntimeError("No product cards found — page may not have loaded or locator is wrong")
+            raise RuntimeError(
+                "No product cards found — page may not have loaded or locator is wrong"
+            )
         result = []
         for i in range(count):
             card = cards.nth(i)
@@ -27,7 +29,10 @@ class MoisturizerPage:
         return result
 
     def get_products_with_ingredient(self, ingredient: str) -> list[Product]:
-        return [Product(name, price) for name, price, _ in self._collect_products(ingredient)]
+        return [
+            Product(name, price)
+            for name, price, _ in self._collect_products(ingredient)
+        ]
 
     def add_cheapest_with_ingredient(self, ingredient: str) -> Product:
         products = self._collect_products(ingredient)

@@ -18,7 +18,9 @@ class CartPage:
     def get_item_prices(self) -> list:
         rows = self.items_table_rows
         count = rows.count()
-        return [int(rows.nth(i).locator("td").nth(1).inner_text()) for i in range(count)]
+        return [
+            int(rows.nth(i).locator("td").nth(1).inner_text()) for i in range(count)
+        ]
 
     def get_total_amount(self) -> int:
         text = self.total.inner_text()
