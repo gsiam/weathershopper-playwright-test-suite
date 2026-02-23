@@ -1,4 +1,5 @@
 import re
+from datetime import date
 
 import pytest
 from playwright.sync_api import expect
@@ -11,7 +12,7 @@ pytestmark = [pytest.mark.e2e, pytest.mark.flaky(reruns=1)]
 
 EMAIL = "test@example.com"
 CARD = "4242 4242 4242 4242"
-EXPIRY = "12 / 26"
+EXPIRY = date.today().replace(year=date.today().year + 2).strftime("%m / %y")
 CVC = "123"
 ZIP = "12345"
 
