@@ -42,7 +42,7 @@ playwright install chromium
 # All tests
 pytest -v
 
-# Smoke test
+# Smoke tests
 pytest -m smoke -v
 
 # Product and cart tests only (no payment)
@@ -61,7 +61,7 @@ docker build -t weathershopper-tests .
 # All tests
 docker run --rm weathershopper-tests -v
 
-# Smoke test
+# Smoke tests
 docker run --rm weathershopper-tests -m smoke -v
 
 # Product and cart tests only (no payment)
