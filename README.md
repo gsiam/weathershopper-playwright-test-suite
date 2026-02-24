@@ -18,7 +18,7 @@ pom/                        # Page Object Models
   sunscreen_page.py
   cart_page.py
 tests/
-  test_home_page.py         # temperature-driven routing
+  test_home_page.py         # homepage navigation smoke tests
   test_moisturizer_page.py  # product page interactions
   test_sunscreen_page.py
   test_cart_page.py         # cart state and totals
@@ -79,12 +79,9 @@ business rule (cheapest aloe, cheapest SPF-50, etc.) and guards against two
 sources of brittleness: product position changes on every page load, and full
 product names may change at any time due to content updates.
 
-**Homepage routing is covered with a lightweight smoke test.** The site randomises
-the temperature on each load (1–18 °C or 35–49 °C). A single test reads the
-rendered temperature, clicks the correct buy button, and asserts the URL. This
-validates the routing rule without running a full purchase. Because the temperature
-is random, only one branch is exercised per run; both paths are covered
-deterministically by the direct purchase tests.
+**Homepage routing is covered by two smoke tests.** One test per buy button, each
+asserting the expected navigation URL. Both buttons are always present regardless
+of temperature, so both paths are verified on every run.
 
 **E2E tests use `pytest.mark.flaky(reruns=1)`.** The site's payment screen fails
 5% of the time by design, simulating real-world payment processor unreliability.
