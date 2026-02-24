@@ -88,4 +88,4 @@ of temperature, so both paths are verified on every run.
 The `flaky` marker retries once on failure, reducing the false alarm rate from 5%
 to 0.25%. Two consecutive failures are treated as a genuine regression.
 
-**Chromium only.** The app has no browser-specific behaviour, so a single engine covers the functional risk. Cross-browser coverage (Firefox, WebKit) could be added via --browser parameterisation with no test changes required.
+**Chromium only.** The app has no browser-specific behaviour, so a single engine covers the functional risk. Cross-browser coverage (Firefox, WebKit) could be added via `--browser` parameterisation with no test changes required.
