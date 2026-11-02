@@ -7,7 +7,7 @@ Automated test suite for [Weather Shopper](http://weathershopper.pythonanywhere.
 - [Playwright](https://playwright.dev/python/) — browser automation
 - [pytest](https://docs.pytest.org/) + [pytest-playwright](https://playwright.dev/python/docs/test-runners) — test runner and fixtures
 - [pytest-rerunfailures](https://github.com/pytest-dev/pytest-rerunfailures) — retry support for known environmental flakiness
-- Python 3.10.19 (pinned in `.python-version`)
+- Python 3.14.10 (pinned in `.python-version`)
 
 ## Structure
 
@@ -29,8 +29,8 @@ conftest.py                 # shared fixtures
 ## Setup
 
 ```bash
-pyenv install 3.10.19 --skip-existing
-python -V  # should print Python 3.10.19
+pyenv install 3.14.10 --skip-existing
+python -V  # should print Python 3.14.10
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 playwright install chromium
